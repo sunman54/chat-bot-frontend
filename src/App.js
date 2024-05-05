@@ -4,24 +4,31 @@ import './App.css';
 
 function App() {
   const [message, setMessage] = useState('');
-  const [chatHistory, setChatHistory] = useState([]);
+  // Initialize chat history from localStorage if available
+  const [chatHistory, setChatHistory] = useState(() => {
+    const savedHistory = localStorage.getItem('chatHistory');
+    return savedHistory ? JSON.parse(savedHistory) : [];
+  });
   const [isTyping, setIsTyping] = useState(false);
   const bottomOfChat = useRef(null);
+
+  // Effect to scroll to the bottom of the chat box whenever chatHistory changes
+  useEffect(() => {
+    scrollToBottom();
+    // Save chat history to localStorage whenever it changes
+    localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
+  }, [chatHistory]);
 
   const scrollToBottom = () => {
     bottomOfChat.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [chatHistory]);
-
   const sendMessage = async () => {
     if (!message.trim()) return;
     const payload = { data: message };
-    setChatHistory([...chatHistory, { msg: message, from: 'user' }]);  // Update chat history immediately with user's message
+    setChatHistory(prevHistory => [...prevHistory, { msg: message, from: 'user' }]);
     setMessage('');
-    setIsTyping(true);  // Set the typing indicator
+    setIsTyping(true);
 
     try {
       const response = await fetch('https://sunman54.pythonanywhere.com/chat', {
@@ -41,10 +48,9 @@ function App() {
           return;
         }
 
-        // Append bot response to the existing chat history and remove typing indicator
         setChatHistory(prevHistory => [...prevHistory, { msg: data.response, from: 'bot', isMarkdown: true }]);
         setIsTyping(false);
-      }, 1000); // Simulate a delay of 1 second for the bot "typing"
+      }, 1000); // Simulate a delay for the bot "typing"
     } catch (error) {
       console.error('Fetch error:', error);
       setIsTyping(false);
