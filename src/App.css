@@ -9,8 +9,8 @@
 }
 
 .chat-container {
-  width: 360px;
-  height: 600px;
+  width: 50%;
+  height: 80%;
   display: flex;
   flex-direction: column;
   border-radius: 8px;
@@ -94,4 +94,30 @@ button:hover {
 .section p {
   font-size: 14px;
   margin-left: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .chat-container {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: white;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .chat-container {
+    width: 90%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: white;
+  }
 }
