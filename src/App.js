@@ -19,8 +19,9 @@ function App() {
   const sendMessage = async () => {
     if (!message.trim()) return;
     const payload = { data: message };
+    setChatHistory([...chatHistory, { msg: message, from: 'user' }]);  // Update chat history immediately with user's message
     setMessage('');
-    setIsTyping(true);
+    setIsTyping(true);  // Set the typing indicator
 
     try {
       const response = await fetch('https://sunman54.pythonanywhere.com/chat', {
@@ -40,7 +41,8 @@ function App() {
           return;
         }
 
-        setChatHistory([...chatHistory, { msg: message, from: 'user' }, { msg: data.response, from: 'bot', isMarkdown: true }]);
+        // Append bot response to the existing chat history and remove typing indicator
+        setChatHistory(prevHistory => [...prevHistory, { msg: data.response, from: 'bot', isMarkdown: true }]);
         setIsTyping(false);
       }, 1000); // Simulate a delay of 1 second for the bot "typing"
     } catch (error) {
@@ -56,11 +58,11 @@ function App() {
           Chat with our Bot
         </header>
         <div className="chat-box">
-          {chatHistory.map((chat, index) => (
+          {chatHistory.map((chat, index) =>
             chat.from === 'bot' && chat.isMarkdown ? 
               <ReactMarkdown key={index} className={`chat-message ${chat.from}`}>{chat.msg}</ReactMarkdown> :
               <p key={index} className={`chat-message ${chat.from}`}>{chat.msg}</p>
-          ))}
+          )}
           {isTyping && <p className="chat-message bot typing-indicator">Bot is typing...</p>}
           <div ref={bottomOfChat} />
         </div>
