@@ -4,7 +4,6 @@ import './App.css';
 
 function App() {
   const [message, setMessage] = useState('');
-  // Initialize chat history from localStorage if available
   const [chatHistory, setChatHistory] = useState(() => {
     const savedHistory = localStorage.getItem('chatHistory');
     return savedHistory ? JSON.parse(savedHistory) : [];
@@ -12,10 +11,8 @@ function App() {
   const [isTyping, setIsTyping] = useState(false);
   const bottomOfChat = useRef(null);
 
-  // Effect to scroll to the bottom of the chat box whenever chatHistory changes
   useEffect(() => {
     scrollToBottom();
-    // Save chat history to localStorage whenever it changes
     localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
   }, [chatHistory]);
 
@@ -44,16 +41,16 @@ function App() {
       const data = await response.json();
       setTimeout(() => {
         if (!data.response || typeof data.response !== 'string') {
-          console.error('Invalid or missing data response:', data.response);
-          return;
+          throw new Error('Invalid or missing data response');
         }
 
         setChatHistory(prevHistory => [...prevHistory, { msg: data.response, from: 'bot', isMarkdown: true }]);
         setIsTyping(false);
-      }, 1000); // Simulate a delay for the bot "typing"
+      }, 1000);
     } catch (error) {
       console.error('Fetch error:', error);
       setIsTyping(false);
+      setChatHistory(prevHistory => [...prevHistory, { msg: "I'm so tired, Can we talk later?", from: 'bot', isMarkdown: false }]);
     }
   };
 
