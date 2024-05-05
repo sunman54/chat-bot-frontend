@@ -96,6 +96,30 @@ button:hover {
   margin-left: 20px;
 }
 
+.chat-header {
+  padding: 20px 20px;
+  text-align: center;
+  position: relative;
+}
+
+.clear-button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #b32f3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.clear-button:hover {
+  background-color: #c82333;
+}
+
+
 @media screen and (max-width: 768px) {
   .chat-container {
     width: 80%;

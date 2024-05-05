@@ -54,11 +54,17 @@ function App() {
     }
   };
 
+  const clearMessages = () => {
+    setChatHistory([]);
+    localStorage.removeItem('chatHistory');
+  };
+
   return (
     <div className="App">
       <div className="chat-container">
         <header className="chat-header">
           Chat with our Bot
+          <button onClick={clearMessages} className="clear-button">Clear Messages</button>
         </header>
         <div className="chat-box">
           {chatHistory.map((chat, index) =>
