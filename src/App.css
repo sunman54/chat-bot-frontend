@@ -78,3 +78,20 @@ button {
 button:hover {
   background-color: #128C7E;
 }
+
+.structured-message {
+  background: #f4f4f8;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 5px 0;
+}
+
+.section h4 {
+  font-size: 16px;
+  color: #333;
+}
+
+.section p {
+  font-size: 14px;
+  margin-left: 20px;
+}
