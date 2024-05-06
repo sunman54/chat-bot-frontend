@@ -63,7 +63,7 @@ function App() {
     <div className="App">
       <div className="chat-container">
         <header className="chat-header">
-          <img src="../public/chat_logo.png" alt="Chat Logo" className="chat-logo"/>
+          <img src="/public/chat_logo.png" alt="Chat Logo" className="chat-logo"/>
           WhatsAI ChatBot
           <button onClick={clearMessages} className="clear-button">Clear Messages</button>
         </header>
