@@ -64,7 +64,7 @@ function App() {
       <div className="chat-container">
         <header className="chat-header">
           WhatsAI ChatBot
-          <button onClick={clearMessages} className="clear-button">Clear Messages</button>
+          <button onClick={clearMessages} className="clear-button">X</button>
         </header>
         <div className="chat-box">
           {chatHistory.map((chat, index) =>
