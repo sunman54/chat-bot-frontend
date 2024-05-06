@@ -63,8 +63,9 @@ function App() {
     <div className="App">
       <div className="chat-container">
         <header className="chat-header">
+          <img src="../public/chat_logo.png" alt="Chat Logo" className="chat-logo"/>
           WhatsAI ChatBot
-          <button onClick={clearMessages} className="clear-button">X</button>
+          <button onClick={clearMessages} className="clear-button">Clear Messages</button>
         </header>
         <div className="chat-box">
           {chatHistory.map((chat, index) =>
@@ -81,7 +82,7 @@ function App() {
             placeholder="Type a message"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+            onKeyPress={(e) => e.key === 'Enter' and sendMessage()}
           />
           <button onClick={sendMessage}>Send</button>
         </div>
